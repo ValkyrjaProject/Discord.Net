@@ -17,8 +17,8 @@ namespace Discord
         private readonly SemaphoreSlim _stateLock;
         private readonly Logger _logger;
         private readonly int _connectionTimeout;
-        private readonly Func<Task> _onConnecting;
-        private readonly Func<Exception, Task> _onDisconnecting;
+        private readonly Func<Task> _connect;
+        private readonly Func<Exception, Task> _disconnect;
 
         private TaskCompletionSource<bool> _connectionPromise, _readyPromise;
         private CancellationTokenSource _combinedCancelToken, _reconnectCancelToken, _connectionCancelToken;
@@ -30,13 +30,13 @@ namespace Discord
         public CancellationToken CancelToken { get; private set; }
 
         internal ConnectionManager(SemaphoreSlim stateLock, Logger logger, int connectionTimeout,
-            Func<Task> onConnecting, Func<Exception, Task> onDisconnecting, Action<Func<Exception, Task>> clientDisconnectHandler)
+            Func<Task> connect, Func<Exception, Task> disconnect, Action<Func<Exception, Task>> clientDisconnectHandler)
         {
             _stateLock = stateLock;
             _logger = logger;
             _connectionTimeout = connectionTimeout;
-            _onConnecting = onConnecting;
-            _onDisconnecting = onDisconnecting;
+            _connect = connect;
+            _disconnect = disconnect;
 
             clientDisconnectHandler(ex =>
             {
@@ -152,7 +152,7 @@ namespace Discord
                     catch (OperationCanceledException) { }
                 });
 
-                await _onConnecting().ConfigureAwait(false);
+                await _connect().ConfigureAwait(false);
 
                 await _logger.InfoAsync("Connected").ConfigureAwait(false);
                 State = ConnectionState.Connected;
@@ -172,7 +172,7 @@ namespace Discord
             State = ConnectionState.Disconnecting;
             await _logger.InfoAsync("Disconnecting").ConfigureAwait(false);
 
-            await _onDisconnecting(ex).ConfigureAwait(false);
+            await _disconnect(ex).ConfigureAwait(false);
 
             State = ConnectionState.Disconnected;
             await _disconnectedEvent.InvokeAsync(ex, isReconnecting).ConfigureAwait(false);

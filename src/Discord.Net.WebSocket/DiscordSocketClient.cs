@@ -172,7 +172,7 @@ namespace Discord.WebSocket
             _stateLock = new SemaphoreSlim(1, 1);
             _gatewayLogger = LogManager.CreateLogger(ShardId == 0 && TotalShards == 1 ? "Gateway" : $"Shard #{ShardId}");
             _connection = new ConnectionManager(_stateLock, _gatewayLogger, config.ConnectionTimeout,
-                OnConnectingAsync, OnDisconnectingAsync, x => ApiClient.Disconnected += x);
+                ConnectAsync, DisconnectAsync, x => ApiClient.Disconnected += x);
             _connection.Connected += () => TimedInvokeAsync(_connectedEvent, nameof(Connected));
             _connection.Disconnected += (ex, recon) => TimedInvokeAsync(_disconnectedEvent, nameof(Disconnected), ex);
 
@@ -295,7 +295,7 @@ namespace Discord.WebSocket
         public override Task StopAsync()
             => _connection.StopAsync();
 
-        private async Task OnConnectingAsync()
+        private async Task ConnectAsync()
         {
             bool locked = false;
             if (_shardedClient != null && _sessionId == null)
@@ -332,7 +332,7 @@ namespace Discord.WebSocket
             if (LogGatewayIntentWarnings)
                 await LogGatewayIntentsWarning().ConfigureAwait(false);
         }
-        private async Task OnDisconnectingAsync(Exception ex)
+        private async Task DisconnectAsync(Exception ex)
         {
             await _gatewayLogger.DebugAsync("Disconnecting ApiClient").ConfigureAwait(false);
             await ApiClient.DisconnectAsync(ex).ConfigureAwait(false);
