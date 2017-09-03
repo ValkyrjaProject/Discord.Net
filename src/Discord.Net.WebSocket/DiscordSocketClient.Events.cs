@@ -7,6 +7,13 @@ namespace Discord.WebSocket
     public partial class DiscordSocketClient
     {
         #region General
+        //General
+        public event Func<Task> Connecting
+        {
+            add { _connectingEvent.Add(value); }
+            remove { _connectingEvent.Remove(value); }
+        }
+        private readonly AsyncEvent<Func<Task>> _connectingEvent = new AsyncEvent<Func<Task>>();
         /// <summary> Fired when connected to the Discord gateway. </summary>
         public event Func<Task> Connected
         {
