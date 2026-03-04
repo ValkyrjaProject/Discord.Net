@@ -13,6 +13,7 @@ namespace Discord.WebSocket
     public class SocketInvite : SocketEntity<string>, IInviteMetadata
     {
         private long _createdAtTicks;
+        public bool Deleted { get; set; }
 
         /// <inheritdoc />
         public ulong ChannelId { get; private set; }
@@ -97,7 +98,7 @@ namespace Discord.WebSocket
 
         /// <inheritdoc />
         public DateTimeOffset? ExpiresAt { get; private set; }
-        
+
         /// <inheritdoc />
         public string Code => Id;
         /// <inheritdoc />
@@ -157,7 +158,7 @@ namespace Discord.WebSocket
 
         /// <inheritdoc />
         IApplication IInvite.Application => Application;
-        
+
         #endregion
     }
 }

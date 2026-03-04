@@ -235,7 +235,10 @@ namespace Discord.Webhook
             return client.ApiClient.ModifyWebhookAsync(client.Webhook.Id, apiArgs, options);
         }
 
-        public static Task DeleteAsync(DiscordWebhookClient client, RequestOptions options)
-            => client.ApiClient.DeleteWebhookAsync(client.Webhook.Id, options);
+        public static async Task DeleteAsync(DiscordWebhookClient client, RequestOptions options)
+        {
+            await client.ApiClient.DeleteWebhookAsync(client.Webhook.Id, options);
+            client.Webhook.Deleted = true;
+        }
     }
 }

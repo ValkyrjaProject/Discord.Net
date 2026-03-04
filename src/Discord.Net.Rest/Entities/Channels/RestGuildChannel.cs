@@ -23,6 +23,7 @@ namespace Discord.Rest
         public string Name { get; private set; }
         /// <inheritdoc />
         public int Position { get; private set; }
+        public bool Deleted { get; set; }
 
         /// <inheritdoc />
         public ulong GuildId { get; }

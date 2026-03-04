@@ -16,6 +16,7 @@ namespace Discord
         public int Bitrate => throw new NotImplementedException();
 
         public int? UserLimit => throw new NotImplementedException();
+        public bool Deleted { get; set; }
         public string Topic { get; }
         public int SlowModeInterval { get; }
         public ThreadArchiveDuration DefaultArchiveDuration { get; }

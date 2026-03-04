@@ -39,6 +39,7 @@ namespace Discord.Rest
 
         /// <inheritdoc />
         public DateTimeOffset CreatedAt => SnowflakeUtils.FromSnowflake(Id);
+        public bool Deleted { get; set; }
         /// <summary>
         ///     Gets if this role is the @everyone role of the guild or not.
         /// </summary>

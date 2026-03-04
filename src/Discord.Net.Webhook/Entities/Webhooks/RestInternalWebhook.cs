@@ -21,6 +21,7 @@ namespace Discord.Webhook
         public WebhookType Type { get; private set; }
 
         public DateTimeOffset CreatedAt => SnowflakeUtils.FromSnowflake(Id);
+        public bool Deleted { get; set; }
 
         internal RestInternalWebhook(DiscordWebhookClient apiClient, Model model)
         {

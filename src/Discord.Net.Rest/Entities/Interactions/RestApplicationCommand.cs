@@ -33,6 +33,7 @@ namespace Discord.Rest
 
         /// <inheritdoc/>
         public bool IsNsfw { get; private set; }
+        public bool Deleted { get; set; }
 
         /// <inheritdoc/>
         public GuildPermissions DefaultMemberPermissions { get; private set; }

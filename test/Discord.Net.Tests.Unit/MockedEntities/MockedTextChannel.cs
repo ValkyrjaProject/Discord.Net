@@ -10,6 +10,7 @@ namespace Discord
     {
         public ChannelType ChannelType => ChannelType.Text;
         public bool IsNsfw => throw new NotImplementedException();
+        public bool Deleted { get; set; }
 
         public int DefaultSlowModeInterval => throw new NotImplementedException();
 

@@ -23,6 +23,7 @@ namespace Discord.WebSocket
 
         /// <inheritdoc/>
         public ulong ApplicationId { get; private set; }
+        public bool Deleted { get; set; }
 
         /// <inheritdoc/>
         public string Name { get; private set; }

@@ -49,6 +49,7 @@ namespace Discord.WebSocket
 
         /// <inheritdoc />
         public DateTimeOffset CreatedAt => SnowflakeUtils.FromSnowflake(Id);
+        public bool Deleted { get; set; }
         /// <summary>
         ///     Returns a value that determines if the role is an @everyone role.
         /// </summary>

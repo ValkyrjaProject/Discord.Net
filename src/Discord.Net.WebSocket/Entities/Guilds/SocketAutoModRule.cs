@@ -14,6 +14,7 @@ namespace Discord.WebSocket
         ///     Gets the guild that this rule is in.
         /// </summary>
         public SocketGuild Guild { get; }
+        public bool Deleted { get; set; }
 
         /// <inheritdoc/>
         public string Name { get; private set; }

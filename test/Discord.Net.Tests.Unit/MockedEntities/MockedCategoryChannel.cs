@@ -17,6 +17,7 @@ namespace Discord
         public IReadOnlyCollection<Overwrite> PermissionOverwrites => throw new NotImplementedException();
 
         public string Name => throw new NotImplementedException();
+        public bool Deleted { get; set; }
 
         public DateTimeOffset CreatedAt => throw new NotImplementedException();
 

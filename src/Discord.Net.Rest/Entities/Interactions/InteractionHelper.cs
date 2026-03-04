@@ -291,6 +291,7 @@ namespace Discord.Rest
 
         public static Task DeleteGlobalCommandAsync(BaseDiscordClient client, IApplicationCommand command, RequestOptions options = null)
         {
+            command.Deleted = true;
             Preconditions.NotNull(command, nameof(command));
             Preconditions.NotEqual(command.Id, 0, nameof(command.Id));
 
@@ -379,6 +380,7 @@ namespace Discord.Rest
 
         public static Task DeleteGuildCommandAsync(BaseDiscordClient client, ulong guildId, IApplicationCommand command, RequestOptions options = null)
         {
+            command.Deleted = true;
             Preconditions.NotNull(command, nameof(command));
             Preconditions.NotEqual(command.Id, 0, nameof(command.Id));
 

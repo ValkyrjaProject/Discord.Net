@@ -19,6 +19,7 @@ namespace Discord.Rest
 
         /// <inheritdoc />
         public DateTimeOffset CreatedAt => SnowflakeUtils.FromSnowflake(Id);
+        public bool Deleted { get; set; }
         /// <inheritdoc />
         public string IconUrl => CDN.GetGuildIconUrl(Id, _iconId);
         /// <inheritdoc />
@@ -62,8 +63,11 @@ namespace Discord.Rest
         }
 
         /// <inheritdoc />
-        public Task DeleteAsync(RequestOptions options = null)
-            => Discord.ApiClient.DeleteGuildAsync(Id, options);
+        public async Task DeleteAsync(RequestOptions options = null)
+        {
+            await Discord.ApiClient.DeleteGuildAsync(Id, options);
+            Deleted = true;
+        }
 
         public override string ToString() => Name;
         private string DebuggerDisplay => $"{Name} ({Id}{(IsOwner ? ", Owned" : "")})";

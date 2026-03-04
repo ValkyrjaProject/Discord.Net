@@ -112,6 +112,7 @@ namespace Discord.Rest
 
         /// <inheritdoc />
         public DateTimeOffset CreatedAt => SnowflakeUtils.FromSnowflake(Id);
+        public bool Deleted { get; set; }
 
         /// <inheritdoc />
         public string IconUrl => CDN.GetGuildIconUrl(Id, IconId);
@@ -1768,7 +1769,7 @@ namespace Discord.Rest
         /// <inheritdoc/>
         async Task<IAutoModRule> IGuild.CreateAutoModRuleAsync(Action<AutoModRuleProperties> props, RequestOptions options)
             => await CreateAutoModRuleAsync(props, options).ConfigureAwait(false);
-        
+
         /// <inheritdoc/>
         async Task<IGuildOnboarding> IGuild.GetOnboardingAsync(RequestOptions options)
             => await GetOnboardingAsync(options);

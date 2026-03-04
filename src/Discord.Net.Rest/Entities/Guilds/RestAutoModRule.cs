@@ -12,18 +12,19 @@ public class RestAutoModRule : RestEntity<ulong>, IAutoModRule
 {
     /// <inheritdoc />
     public DateTimeOffset CreatedAt { get; private set; }
+    public bool Deleted { get; set; }
 
     /// <inheritdoc />
-    public ulong GuildId { get; private set; }      
+    public ulong GuildId { get; private set; }
 
     /// <inheritdoc />
-    public string Name { get; private set; }    
+    public string Name { get; private set; }
 
     /// <inheritdoc />
     public ulong CreatorId { get; private set; }
 
     /// <inheritdoc />
-    public AutoModEventType EventType { get; private set; } 
+    public AutoModEventType EventType { get; private set; }
 
     /// <inheritdoc />
     public AutoModTriggerType TriggerType { get; private set; }

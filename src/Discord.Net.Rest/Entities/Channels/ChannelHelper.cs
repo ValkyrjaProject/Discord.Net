@@ -13,8 +13,13 @@ namespace Discord.Rest
     internal static class ChannelHelper
     {
         #region General
-        public static Task DeleteAsync(IChannel channel, BaseDiscordClient client, RequestOptions options)
-            => client.ApiClient.DeleteChannelAsync(channel.Id, options);
+        public static async Task DeleteAsync(IChannel channel, BaseDiscordClient client, RequestOptions options)
+        {
+            await client.ApiClient.DeleteChannelAsync(channel.Id, options);
+            IDeletable del = channel as IDeletable;
+            if( del != null )
+                del.Deleted = true;
+        }
 
         public static Task<Model> ModifyAsync(IGuildChannel channel, BaseDiscordClient client,
             Action<GuildChannelProperties> func,

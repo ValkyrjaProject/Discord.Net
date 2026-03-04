@@ -133,8 +133,11 @@ namespace Discord.Rest
         public static Task LeaveAsync(IGuild guild, BaseDiscordClient client, RequestOptions options)
             => client.ApiClient.LeaveGuildAsync(guild.Id, options);
 
-        public static Task DeleteAsync(IGuild guild, BaseDiscordClient client, RequestOptions options)
-            => client.ApiClient.DeleteGuildAsync(guild.Id, options);
+        public static async Task DeleteAsync(IGuild guild, BaseDiscordClient client, RequestOptions options)
+        {
+            await client.ApiClient.DeleteGuildAsync(guild.Id, options);
+            guild.Deleted = true;
+        }
 
         public static int GetMaxBitrate(PremiumTier premiumTier)
         {
@@ -1552,8 +1555,11 @@ namespace Discord.Rest
             return client.ApiClient.ModifyGuildAutoModRuleAsync(rule.GuildId, rule.Id, apiArgs, options);
         }
 
-        public static Task DeleteRuleAsync(BaseDiscordClient client, IAutoModRule rule, RequestOptions options)
-            => client.ApiClient.DeleteGuildAutoModRuleAsync(rule.GuildId, rule.Id, options);
+        public static async Task DeleteRuleAsync(BaseDiscordClient client, IAutoModRule rule, RequestOptions options)
+        {
+            await client.ApiClient.DeleteGuildAutoModRuleAsync(rule.GuildId, rule.Id, options);
+            rule.Deleted = true;
+        }
         #endregion
 
         #region Onboarding

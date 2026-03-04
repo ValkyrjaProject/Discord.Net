@@ -29,6 +29,7 @@ namespace Discord.WebSocket
         public string Name { get; private set; }
         /// <inheritdoc />
         public int Position { get; private set; }
+        public bool Deleted { get; set; }
 
         /// <inheritdoc />
         public ChannelFlags Flags { get; private set; }

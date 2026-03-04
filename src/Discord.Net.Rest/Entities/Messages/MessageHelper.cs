@@ -104,8 +104,11 @@ namespace Discord.Rest
             }
         }
 
-        public static Task DeleteAsync(IMessage msg, BaseDiscordClient client, RequestOptions options)
-            => DeleteAsync(msg.Channel.Id, msg.Id, client, options);
+        public static async Task DeleteAsync(IMessage msg, BaseDiscordClient client, RequestOptions options)
+        {
+            await DeleteAsync(msg.Channel.Id, msg.Id, client, options);
+            msg.Deleted = true;
+        }
 
         public static Task DeleteAsync(ulong channelId, ulong msgId, BaseDiscordClient client, RequestOptions options)
             => client.ApiClient.DeleteMessageAsync(channelId, msgId, options);

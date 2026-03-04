@@ -12,6 +12,7 @@ namespace Discord.Rest
 
         internal IGuild Guild { get; private set; }
         internal IIntegrationChannel Channel { get; private set; }
+        public bool Deleted { get; set; }
 
         /// <inheritdoc />
         public string Token { get; }

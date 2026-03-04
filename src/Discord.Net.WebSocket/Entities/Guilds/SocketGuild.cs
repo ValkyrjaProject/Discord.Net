@@ -151,6 +151,7 @@ namespace Discord.WebSocket
 
         /// <inheritdoc />
         public DateTimeOffset CreatedAt => SnowflakeUtils.FromSnowflake(Id);
+        public bool Deleted { get; set; }
         /// <inheritdoc />
         public string IconUrl => CDN.GetGuildIconUrl(Id, IconId);
         /// <inheritdoc />
@@ -1343,7 +1344,7 @@ namespace Discord.WebSocket
         /// <inheritdoc />
         public Task<MemberSearchResult> SearchUsersAsyncV2(int limit = DiscordConfig.MaxUsersPerBatch, MemberSearchPropertiesV2 args = null, RequestOptions options = null)
             => GuildHelper.SearchUsersAsyncV2(this, Discord, limit, args, options);
-        
+
         /// <inheritdoc />
         public Task ModifyCurrentUserAsync(Action<SelfGuildUserProperties> props, RequestOptions options = null)
         {

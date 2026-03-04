@@ -4,7 +4,10 @@ namespace Discord.Rest
 {
     internal static class InviteHelper
     {
-        public static Task DeleteAsync(IInvite invite, BaseDiscordClient client, RequestOptions options)
-            => client.ApiClient.DeleteInviteAsync(invite.Code, options);
+        public static async Task DeleteAsync(IInvite invite, BaseDiscordClient client, RequestOptions options)
+        {
+            await client.ApiClient.DeleteInviteAsync(invite.Code, options);
+            invite.Deleted = true;
+        }
     }
 }

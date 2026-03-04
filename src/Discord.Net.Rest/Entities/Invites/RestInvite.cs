@@ -57,6 +57,7 @@ namespace Discord.Rest
         public string Code => Id;
         /// <inheritdoc />
         public string Url => $"{DiscordConfig.InviteUrl}{Code}";
+        public bool Deleted { get; set; }
 
         internal RestInvite(BaseDiscordClient discord, IGuild guild, IChannel channel, string id)
             : base(discord, id)
@@ -143,7 +144,7 @@ namespace Discord.Rest
 
         /// <inheritdoc />
         IApplication IInvite.Application => Application;
-        
+
         #endregion
     }
 }

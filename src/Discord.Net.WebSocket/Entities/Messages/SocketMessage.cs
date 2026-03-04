@@ -45,6 +45,7 @@ namespace Discord.WebSocket
 
         /// <inheritdoc />
         public DateTimeOffset CreatedAt => SnowflakeUtils.FromSnowflake(Id);
+        public bool Deleted { get; set; }
         /// <inheritdoc />
         public virtual bool IsTTS => false;
         /// <inheritdoc />
