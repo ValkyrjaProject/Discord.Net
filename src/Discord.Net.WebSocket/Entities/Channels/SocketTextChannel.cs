@@ -405,12 +405,16 @@ namespace Discord.WebSocket
 
         #region IMessageChannel
         /// <inheritdoc />
-        Task<IMessage> IMessageChannel.GetMessageAsync(ulong id, CacheMode mode, RequestOptions options)
+        async Task<IMessage> IMessageChannel.GetMessageAsync(ulong id, CacheMode mode, RequestOptions options)
         {
-            if (mode == CacheMode.AllowDownload)
-                return GetMessageAsync(id, options);
-            else
-                return Task.FromResult((IMessage)GetCachedMessage(id));
+            IMessage msg = GetCachedMessage(id);
+            if (msg != null || mode != CacheMode.AllowDownload)
+                return msg;
+
+            msg = await GetMessageAsync(id, options);
+            if(msg is SocketMessage socketMsg)
+                AddMessage(socketMsg);
+            return msg;
         }
         /// <inheritdoc />
         IAsyncEnumerable<IReadOnlyCollection<IMessage>> IMessageChannel.GetMessagesAsync(int limit, CacheMode mode, RequestOptions options)
